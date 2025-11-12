@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags (as requested) -->
+    <title>Aqua RO Service — RO Service & Repair in Noida & Greater Noida</title>
+    <meta name="description" content="Aqua RO Service (Pro. Roshan Sharma) — Trusted RO sales, service & repair with fast response. Two offices: Noida & Gaur City-2. Call 8930414198 / 8307003644.">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Custom Tailwind Configuration & Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'aqua': { // Reverting to original blue/green theme
+                            DEFAULT: '#00AEEF', // Original Aqua Blue
+                            'dark': '#0D6EAF',  // Original Dark Blue
+                            'green': '#0A8A72', // Original CTA Green
+                            'light': '#EBF8FF', // Original Light Blue
+                        },
+                        'deep-blue': '#0a2540', // Original Deep Blue
+                    },
+                    fontFamily: {
+                        'sans': ['Roboto', 'sans-serif'],
+                        'display': ['Poppins', 'sans-serif'],
+                        'heading': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom styles for animations and components */
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Subtle Water Wave Animation */
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .wave-animation {
+            animation: wave 10s linear infinite;
+            width: 200%; /* Needs to be wider than view to loop smoothly */
+        }
+        
+        /* --- NEW: Hero Slider Animation --- */
+        /* @keyframes endless-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); } 
+        } */
+        .hero-slider-track {
+            /* animation: endless-scroll 80s linear infinite; */ /* Removed animation */
+            /* width: 1200%; */ /* 6 images * 2 sets */
+            display: flex;
+            position: absolute;
+            inset: 0;
+            /* Added for scroll-snap */
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            /* Hide scrollbar */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .hero-slider-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hero-slider-item {
+            flex-shrink: 0;
+            /* width: 8.3333%; */ /* 100 / 12 */
+            width: 100%; /* Each item is full width */
+            scroll-snap-align: start; /* Snap to start */
+            position: relative;
+            height: 100%;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .wave-animation,
+            .hero-slider-track {
+                animation: none;
+            }
+        }
+
+        /* Before/After Slider */
+        .ba-slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem; /* rounded-xl */
+        }
+        .ba-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .ba-slider .ba-image-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+            transition: clip-path 0.1s ease-out;
+        }
+        .ba-slider .ba-slider-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 3px;
+            height: 90%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(2px);
+            pointer-events: none;
+            transition: left 0.1s ease-out;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .ba-slider .ba-slider-handle::before,
+        .ba-slider .ba-slider-handle::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0D6EAF;
+        }
+        .ba-slider .ba-slider-handle::before {
+            top: -20px;
+            content: '◀';
+            padding-left: 10px;
+        }
+        .ba-slider .ba-slider-handle::after {
+            bottom: -20px;
+            content: '▶';
+            padding-left: 14px;
+        }
+        
+        /* Lightbox */
+        .lightbox {
+            transition: opacity 0.3s ease;
+        }
+        
+        /* Floating Action Button (FAB) */
+        .fab-modal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        /* Scrollbar for Gallery */
+        .scroll-gallery::-webkit-scrollbar {
+            height: 8px;
+        }
+        .scroll-gallery::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 4px;
+        }
+        .scroll-gallery::-webkit-scrollbar-thumb {
+            background: #00AEEF; /* Reverted to blue */
+            border-radius: 4px;
+        }
+        .scroll-gallery::-webkit-scrollbar-thumb:hover {
+            background: #0D6EAF; /* Reverted to dark blue */
+        }
+
+        /* --- Water Drop Animation (Enhanced) --- */
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7; /* Fade in */
+            }
+            90% {
+                opacity: 0.7; /* Stay visible */
+            }
+            100% {
+                transform: translateY(100vh) scale(0.8); /* Shrink as it fades */
+                opacity: 0; /* Fade out */
+            }
+        }
+        
+        .droplet {
+            position: absolute;
+            top: -100px; /* Start off-screen */
+            /* Simulate a highlight with a radial gradient */
+            background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1) 80%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; /* Teardrop shape */
+            z-index: 5; /* Below hero content/wave, above BG */
+            animation: fall 10s ease-in infinite; /* Base animation, use ease-in for acceleration */
+            pointer-events: none; /* Don't interfere with clicks */
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            /* Hide droplets for users who prefer reduced motion */
+            #droplet-container {
+                display: none;
+            }
+        }
+    </style>
+
+    <!-- Structured Data (SEO) for two locations -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "LocalBusiness",
+          "name": "Aqua RO Service",
+          "image": "/mnt/data/d43dbe67-067f-429f-986c-bc797dfab2f3.png",
+          "@id": "urn:uuid:noida-office",
+          "url": "https://www.aquaroservice-example.com",
+          "telephone": [
+            "+91-8930414198",
+            "+91-8307003644"
+          ],
+          "description": "Trusted RO sales, service & repair. Pro. Roshan Sharma. We service all brands.",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Near Green Filed Public School, Tigri Gol Chakkar",
+            "addressLocality": "Noida",
+            "postalCode": "201301",
+            "addressRegion": "UP",
+            "addressCountry": "IN"
+          },
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "09:00",
+              "closes": "20:00"
+            }
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+91-8930414198",
+            "contactType": "Customer Service",
+            "areaServed": "IN"
+          }
+        },
+        {
+          "@type": "LocalBusiness",
+          "name": "Aqua RO Service (Gaur City Office)",
+          "image": "/mnt/data/d43dbe67-067f-429f-986c-bc797dfab2f3.png",
+          "@id": "urn:uuid:gaur-city-office",
+          "url": "https://www.aquaroservice-example.com",
+          "telephone": [
+            "+91-8930414198",
+            "+91-8307003644"
+          ],
+          "description": "Trusted RO sales, service & repair. Pro. Roshan Sharma. We service all brands.",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Gaur City-2",
+            "addressLocality": "Greater Noida West",
+            "addressRegion": "UP",
+            "addressCountry": "IN"
+          },
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "09:00",
+              "closes": "20:00"
+            }
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+91-8307003644",
+            "contactType": "Customer Service",
+            "areaServed": "IN"
+          }
+        }
+      ]
+    }
+    </script>
+
+</head>
+<body class="bg-white text-gray-800 antialiased">
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo / Business Name -->
+            <a href="#" class="text-2xl font-bold font-heading text-aqua-dark">
+                Aqua RO Service
+                <span class="block text-xs font-medium text-gray-600">Pro. Roshan Sharma</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-6 items-center">
+                <a href="#" class="text-gray-700 hover:text-aqua transition-colors">Home</a>
+                <a href="#services" class="text-gray-700 hover:text-aqua transition-colors">Services</a>
+                <a href="#gallery" class="text-gray-700 hover:text-aqua transition-colors">Gallery</a>
+                <a href="#locations" class="text-gray-700 hover:text-aqua transition-colors">Locations</a>
+                <a href="#booking-form" class="text-gray-700 hover:text-aqua transition-colors">Contact</a>
+            </nav>
+
+            <!-- Desktop CTA -->
+            <a href="tel:8930414198" class="hidden md:inline-flex items-center gap-2 bg-aqua-green text-white px-6 py-3 rounded-lg font-medium shadow-md hover:shadow-lg hover:bg-aqua-green/90 transition-all transform hover:scale-105">
+                <!-- Phone Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call Now
+            </a>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-deep-blue p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu (Hidden) -->
+        <div id="mobile-menu" class="md:hidden hidden flex-col bg-white shadow-xl absolute top-full left-0 w-full z-40">
+            <a href="#" class="block px-6 py-3 text-gray-700 hover:bg-aqua-light">Home</a>
+            <a href="#services" class="block px-6 py-3 text-gray-700 hover:bg-aqua-light">Services</a>
+            <a href="#gallery" class="block px-6 py-3 text-gray-700 hover:bg-aqua-light">Gallery</a>
+            <a href="#locations" class="block px-6 py-3 text-gray-700 hover:bg-aqua-light">Locations</a>
+            <a href="#booking-form" class="block px-6 py-3 text-gray-700 hover:bg-aqua-light">Contact</a>
+            <a href="tel:8930414198" class="block px-6 py-4 bg-aqua-green text-white text-center font-medium">Call 8930414198</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-[95vh] min-h-[650px] flex items-center justify-center text-center text-white overflow-hidden">
+            
+            <!-- NEW: Sliding Background Images -->
+            <div id="hero-slider" class="absolute inset-0 z-0 overflow-hidden">
+                <div class="hero-slider-track">
+                    <!-- Set 1 -->
+                    <div class="hero-slider-item">
+                        <img src="https://aquaro.in/wp-content/uploads/2024/04/aqua_logo.jpg" alt="Aqua RO Logo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://hardwarepasal.com/src/img/product/2023-06-13-11-32-19_mHVdbNNpkaproduct.jpg';">
+                        <div class="absolute inset-0 bg-deep-blue/50"></div>
+                    </div>
+                    <div class="hero-slider-item">
+                        <img src="https://storage.googleapis.com/agent-docs-mediastore/a49c9533-be76-4e58-94ed-f4951475c404/technician.png" alt="RO Technician at work" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/1920x1080/0a2540/EBF8FF?text=Expert+Service';">
+                        <div class="absolute inset-0 bg-deep-blue/50"></div>
+                    </div>
+                    <div class="hero-slider-item">
+                        <img src="https://aquaro.in/wp-content/uploads/2024/04/aqua_logo.jpg" alt="Aqua RO Logo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://hardwarepasal.com/src/img/product/2023-06-13-11-32-19_mHVdbNNpkaproduct.jpg';">
+                        <div class="absolute inset-0 bg-deep-blue/50"></div>
+                    </div>
+                    <div class="hero-slider-item">
+                        <img src="https://aquaro.in/wp-content/uploads/2024/04/aqua_logo.jpg" alt="Aqua RO Logo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/1920x1080/0a2540/EBF8FF?text=Aqua+RO';">
+                        <div class="absolute inset-0 bg-deep-blue/50"></div>
+                    </div>
+                    <div class="hero-slider-item">
+                        <img src="https://merlinro.in/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-06-at-20.34.28_6dbc9047.jpg" alt="RO Service Banner" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/1920x1080/0a2540/EBF8FF?text=Reliable+Service';">
+                        <div class="absolute inset-0 bg-deep-blue/50"></div>
+                    </div>
+                    <div class="hero-slider-item">
+                        <img src="https://merlinro.in/wp-content/uploads/2023/09/1920x700_Planet-RO-COVER-PAGE.png" alt="Planet RO Banner" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/1920x1080/0a2540/EBF8FF?text=Planet+RO';">
+                        <div class="absolute inset-0 bg-deep-blue/50"></div>
+                    </div>
+                    <!-- Set 2 (for loop) -->
+                    <!-- REMOVED DUPLICATE IMAGES -->
+                </div>
+
+                <!-- NEW: Slider Navigation Buttons -->
+                <button id="hero-prev-btn" class="hero-slider-btn absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/30 text-white rounded-full shadow-lg hover:bg-white/50 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <button id="hero-next-btn" class="hero-slider-btn absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/30 text-white rounded-full shadow-lg hover:bg-white/50 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+            </div>
+
+            <!-- Water Drop Animation Container -->
+            <div id="droplet-container" class="absolute inset-0 z-5 overflow-hidden pointer-events-none"></div>
+
+            <!-- Subtle Water Animation -->
+            <div class="absolute bottom-0 left-0 w-full h-24 z-10 overflow-hidden">
+                <svg class="wave-animation" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" style="transform: translateY(60%);">
+                    <path fill="rgba(255,255,255,0.2)" fill-opacity="1" d="M0,192L48,176C96,160,192,128,288,133.3C384,139,480,181,576,202.7C672,224,768,224,864,208C960,192,1056,160,1152,149.3C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                    <path fill="rgba(255,255,255,0.4)" fill-opacity="1" d="M0,224L48,208C96,192,192,160,288,170.7C384,181,480,235,576,245.3C672,256,768,224,864,197.3C960,171,1056,149,1152,138.7C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                </svg>
+            </div>
+
+            <!-- Hero Content -->
+            <div class="relative z-20 container mx-auto px-4 flex flex-col items-center">
+                <h1 class="font-heading font-extrabold text-5xl md:text-7xl drop-shadow-lg">AQUA RO SERVICE</h1>
+                <p class="font-display font-bold text-3xl md:text-5xl text-aqua mt-2 drop-shadow-md">RO hi RO</p>
+                <p class="text-lg md:text-xl text-gray-200 mt-4 max-w-2xl">
+                    <span class="font-bold">सेल्स • सर्विस • रिपेयर</span><br>
+                    Sales • Service • Repair — Trusted RO technicians in Noida & Greater Noida
+                </p>
+
+                <!-- CTAs -->
+                <div class="flex flex-col sm:flex-row gap-4 mt-8">
+                    <a href="#booking-form" class="inline-flex items-center justify-center gap-2 bg-aqua text-white px-8 py-3.5 rounded-lg font-bold text-lg shadow-lg hover:bg-aqua/90 transition-all transform hover:scale-105">
+                        <!-- Book Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-plus"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M10 16h4"/><path d="M12 14v4"/></svg>
+                        Book Service
+                    </a>
+                    <a href="tel:8930414198" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-3.5 rounded-lg font-bold text-lg shadow-lg hover:bg-white hover:text-deep-blue transition-all transform hover:scale-105">
+                        <!-- Phone Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        Call Now: 8930414198
+                    </a>
+                </div>
+
+                <!-- Office Locations (Hero) -->
+                <div class="flex flex-col md:flex-row gap-6 mt-12 text-left">
+                    <div class="flex items-start gap-3 bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+                        <!-- Map Pin Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin text-aqua shrink-0 mt-1"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <div>
+                            <span class="font-bold text-white">Noida Office:</span>
+                            <p class="text-gray-200 text-sm">Near Green Filed Public School, Tigri Gol Chakkar, Noida - 201301</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+                        <!-- Map Pin Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin text-aqua shrink-0 mt-1"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <div>
+                            <span class="font-bold text-white">Greater Noida Office:</span>
+                            <p class="text-gray-200 text-sm">Gaur City-2, Greater Noida West</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Service Bullets -->
+        <section class="bg-aqua-light py-8">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
+                    <div class="flex flex-col items-center text-aqua-dark">
+                        <!-- Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-plus"><path d="M16.3 9.3a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4 0l-2-2a1 1 0 0 1 1.4-1.4l1.3 1.3 3.3-3.3a1 1 0 0 1 1.4 0z"/><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14M16.5 9.4L7.55 4.24"/><path d="M3.29 7L12 12l8.71-5"/><path d="M12 22.08V12"/><path d="M16 19h6"/><path d="M19 16v6"/></svg>
+                        <span class="mt-2 font-medium">Installation</span>
+                    </div>
+                    <div class="flex flex-col items-center text-aqua-dark">
+                        <!-- Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.7-3.7a1 1 0 0 0-1.4-1.4l-3.7 3.7-1.6-1.6a1 1 0 0 0-1.4 0z"/><path d="m18.7 14.7-1.6-1.6a1 1 0 0 0-1.4 0l-3.7 3.7a1 1 0 0 0 1.4 1.4l3.7-3.7 1.6 1.6a1 1 0 0 0 1.4 0l1.4-1.4a1 1 0 0 0 0-1.4z"/><path d="m6.3 14.7-1.6-1.6a1 1 0 0 1 0-1.4l3.7-3.7a1 1 0 0 1 1.4 1.4l-3.7 3.7 1.6 1.6a1 1 0 0 1 0 1.4l-1.4 1.4a1 1 0 0 1-1.4 0z"/><path d="m3.4 17.6 1.6 1.6a1 1 0 0 0 1.4 0l3.7-3.7a1 1 0 0 0-1.4-1.4l-3.7 3.7-1.6-1.6a1 1 0 0 0-1.4 0l-1.4 1.4a1 1 0 0 0 0 1.4z"/></svg>
+                        <span class="mt-2 font-medium">All Brands Repair</span>
+                    </div>
+                    <div class="flex flex-col items-center text-aqua-dark">
+                        <!-- Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-filter"><path d="M22 3.29c-1.42 1.42-3.29 3.29-5.17 5.17A8.18 8.18 0 0 1 12 10V5.17C12 5.17 12 5.17 12 5.17c0-2.2-1.8-4-4-4H4C2.34 1.17 2.34 1.17 2.34 1.17 1.6 1.9 1.17 2.83 1.17 3.9c0 1.1.42 2.02.42 2.02.42 1 .42 1.42.42 1.42.42.42.83 1 .83 1 .42.42 1 .83 1 .83.42.42 1 .83 1 .83s.83.42 1.42.42c.58 0 1.17-.18 1.63-.47.2-.12.4-.27.57-.42.2-.17.38-.37.54-.58.17-.2.32-.42.45-.64.1-.18.2-.38.27-.58.1-.2.17-.4-.22-.6-.05-.2-.1-.4-.12-.6-.03-.2-.05-.4-.05-.6V10a6 6 0 0 0 1.88-4.17A8.18 8.18 0 0 1 20.71 8.5c1.88-1.88 3.75-3.75 5.17-5.17Z"/><path d="M12.9 18.29c-1.42-1.42-3.29-3.29-5.17-5.17A8.18 8.18 0 0 1 3 12v4.83C3 16.83 3 16.83 3 16.83c0 2.2 1.8 4 4 4h4c1.66 0 1.66 0 1.66 0 .74-.7 1.17-1.63 1.17-2.7 0-1.1-.42-2.02-.42-2.02-.42-1-.42-1.42-.42-1.42-.42-.42-.83-1-1-1s-1-.42-1-.42-.83-.42-1.42-.42c-.58 0-1.17.18-1.63.47-.2.12-.4.27-.57-.42-.2.17-.38.37-.54-.58-.17-.2-.32.42-.45-.64-.1.18-.2.38-.27-.58-.1.2-.17.4-.22-.6-.05.2-.1.4-.12-.6-.03.2-.05.4-.05-.6V12a6 6 0 0 0-1.88 4.17A8.18 8.18 0 0 1 3.29 15.5c-1.88 1.88-3.75 3.75-5.17 5.17Z"/></svg>
+                        <span class="mt-2 font-medium">Filter Replacement</span>
+                    </div>
+                    <div class="flex flex-col items-center text-aqua-dark">
+                        <!-- Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-check"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+                        <span class="mt-2 font-medium">Annual Maintenance</span>
+                    </div>
+                    <div class="flex flex-col items-center text-aqua-dark">
+                        <!-- Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-droplets"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-2.5-3.5-4.5c0-1.1.9-2 2-2 1.1 0 2 .9 2 2"/><path d="M12 22a7 7 0 0 1-7-7c0-2 1-3.9 3-5.5s3.5-2.5 3.5-4.5c0-1.1-.9-2-2-2-1.1 0-2 .9-2 2"/></svg>
+                        <span class="mt-2 font-medium">Tank Cleaning</span>
+                    </div>
+                    <div class="flex flex-col items-center text-aqua-dark">
+                        <!-- Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-alert"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                        <span class="mt-2 font-medium">Emergency Support</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services & Features Section -->
+        <section id="services" class="py-16 lg:py-24">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <span class="text-aqua-dark font-semibold">Our Services</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-deep-blue mt-2">What We Do Best</h2>
+                    <p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">From new installations to emergency repairs, we've got your pure water needs covered.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Service Card 1: Installation -->
+                    <div class="group bg-white border border-gray-200 rounded-xl shadow-lg p-6 text-center transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-aqua-light rounded-full mb-4">
+                            <!-- Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-plus text-aqua-dark"><path d="M16.3 9.3a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4 0l-2-2a1 1 0 0 1 1.4-1.4l1.3 1.3 3.3-3.3a1 1 0 0 1 1.4 0z"/><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14M16.5 9.4L7.55 4.24"/><path d="M3.29 7L12 12l8.71-5"/><path d="M12 22.08V12"/><path d="M16 19h6"/><path d="M19 16v6"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-deep-blue mb-2">New Installation</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Get your new RO unit professionally installed at your home or office. All brands supported.</p>
+                        <a href="#booking-form" class="font-medium text-aqua-dark hover:text-aqua">Book Now &rarr;</a>
+                    </div>
+                    
+                    <!-- Service Card 2: Repair -->
+                    <div class="group bg-white border border-gray-200 rounded-xl shadow-lg p-6 text-center transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-aqua-light rounded-full mb-4">
+                            <!-- Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench text-aqua-dark"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.7-3.7a1 1 0 0 0-1.4-1.4l-3.7 3.7-1.6-1.6a1 1 0 0 0-1.4 0z"/><path d="m18.7 14.7-1.6-1.6a1 1 0 0 0-1.4 0l-3.7 3.7a1 1 0 0 0 1.4 1.4l3.7-3.7 1.6 1.6a1 1 0 0 0 1.4 0l1.4-1.4a1 1 0 0 0 0-1.4z"/><path d="m6.3 14.7-1.6-1.6a1 1 0 0 1 0-1.4l3.7-3.7a1 1 0 0 1 1.4 1.4l-3.7 3.7 1.6 1.6a1 1 0 0 1 0 1.4l-1.4 1.4a1 1 0 0 1-1.4 0z"/><path d="m3.4 17.6 1.6 1.6a1 1 0 0 0 1.4 0l3.7-3.7a1 1 0 0 0-1.4-1.4l-3.7 3.7-1.6-1.6a1 1 0 0 0-1.4 0l-1.4 1.4a1 1 0 0 0 0 1.4z"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-deep-blue mb-2">Repair & Troubleshooting</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Leaking? Low flow? Bad taste? Our technicians diagnose and fix all RO problems fast.</p>
+                        <a href="#booking-form" class="font-medium text-aqua-dark hover:text-aqua">Book Now &rarr;</a>
+                    </div>
+                    
+                    <!-- Service Card 3: Filter Replacement -->
+                    <div class="group bg-white border border-gray-200 rounded-xl shadow-lg p-6 text-center transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-aqua-light rounded-full mb-4">
+                            <!-- Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-filter text-aqua-dark"><path d="M22 3.29c-1.42 1.42-3.29 3.29-5.17 5.17A8.18 8.18 0 0 1 12 10V5.17C12 5.17 12 5.17 12 5.17c0-2.2-1.8-4-4-4H4C2.34 1.17 2.34 1.17 2.34 1.17 1.6 1.9 1.17 2.83 1.17 3.9c0 1.1.42 2.02.42 2.02.42 1 .42 1.42.42 1.42.42.42.83 1 .83 1 .42.42 1 .83 1 .83.42.42 1 .83 1 .83s.83.42 1.42.42c.58 0 1.17-.18 1.63-.47.2-.12.4-.27.57-.42.2-.17.38-.37.54-.58.17-.2.32-.42.45-.64.1-.18.2-.38.27-.58.1-.2.17-.4-.22-.6-.05-.2-.1-.4-.12-.6-.03-.2-.05-.4-.05-.6V10a6 6 0 0 0 1.88-4.17A8.18 8.18 0 0 1 20.71 8.5c1.88-1.88 3.75-3.75 5.17-5.17Z"/><path d="M12.9 18.29c-1.42-1.42-3.29-3.29-5.17-5.17A8.18 8.18 0 0 1 3 12v4.83C3 16.83 3 16.83 3 16.83c0 2.2 1.8 4 4 4h4c1.66 0 1.66 0 1.66 0 .74-.7 1.17-1.63 1.17-2.7 0-1.1-.42-2.02-.42-2.02-.42-1-.42-1.42-.42-1.42-.42-.42-.83-1-1-1s-1-.42-1-.42-.83-.42-1.42-.42c-.58 0-1.17.18-1.63.47-.2.12-.4.27-.57-.42-.2.17-.38.37-.54-.58-.17-.2-.32.42-.45-.64-.1.18-.2.38-.27-.58-.1.2-.17.4-.22-.6-.05.2-.1.4-.12-.6-.03.2-.05.4-.05-.6V12a6 6 0 0 0-1.88 4.17A8.18 8.18 0 0 1 3.29 15.5c-1.88 1.88-3.75 3.75-5.17 5.17Z"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-deep-blue mb-2">Filter Replacement</h3>
+                        <p class="text-gray-600 mb-4 text-sm">We use genuine, high-quality filters and membranes to ensure your water is always 100% pure.</p>
+                        <a href="#booking-form" class="font-medium text-aqua-dark hover:text-aqua">Book Now &rarr;</a>
+                    </div>
+                    
+                    <!-- Service Card 4: AMC -->
+                    <div class="group bg-white border border-gray-200 rounded-xl shadow-lg p-6 text-center transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-aqua-light rounded-full mb-4">
+                            <!-- Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-check text-aqua-dark"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-deep-blue mb-2">AMC / Maintenance</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Protect your investment with our affordable Annual Maintenance Contracts (AMC).</p>
+                        <a href="#booking-form" class="font-medium text-aqua-dark hover:text-aqua">Book Now &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-16 lg:py-24 bg-aqua-light">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <span class="text-aqua-dark font-semibold">Our Gallery</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-deep-blue mt-2">Products & Happy Customers</h2>
+                    <p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">See our range of products, our team at work, and the results we deliver.</p>
+                </div>
+
+                <!-- Responsive Image Carousel (CSS Scroll-Snap) -->
+                <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 lg:gap-6 pb-6 scroll-gallery">
+                    <!-- Image 1 (Provided) -->
+                    <div class="gallery-item snap-center shrink-0 w-4/5 sm:w-2/5 lg:w-1/4 rounded-lg overflow-hidden shadow-lg cursor-pointer">
+                        <img src="banner.png" alt="Aqua RO Service main signboard with phone numbers" class="w-full h-64 object-cover" loading="lazy">
+                    </div>
+                    <!-- Image 2 (Provided) -->
+                    <div class="gallery-item snap-center shrink-0 w-4/5 sm:w-2/5 lg:w-1/4 rounded-lg overflow-hidden shadow-lg cursor-pointer">
+                        <img src="https://aquaro.in/wp-content/uploads/2024/04/aqua_logo.jpg" alt="Aqua RO Service clean branding" class="w-full h-64 object-cover" loading="lazy">
+                    </div>
+                    <!-- Image 3 (NEWLY GENERATED) -->
+                    <div class="gallery-item snap-center shrink-0 w-4/5 sm:w-2/5 lg:w-1/4 rounded-lg overflow-hidden shadow-lg cursor-pointer">
+                        <img src="https://hardwarepasal.com/src/img/product/2023-06-13-11-32-19_mHVdbNNpkaproduct.jpg" alt="A modern RO water purifier unit" class="w-full h-64 object-cover" loading="lazy">
+                    </div>
+                    <!-- Image 4 (NEWLY GENERATED) -->
+                    <div class="gallery-item snap-center shrink-0 w-4/5 sm:w-2/5 lg:w-1/4 rounded-lg overflow-hidden shadow-lg cursor-pointer">
+                        <img src="https://www.scrapcareindia.com/ro/images/ro-installation2.webp" alt="Technician repairing an RO unit" class="w-full h-64 object-cover" loading="lazy">
+                    </div>
+                    <!-- Image 5 (Placeholder) -->
+                    <div class="gallery-item snap-center shrink-0 w-4/5 sm:w-2/5 lg:w-1/4 rounded-lg overflow-hidden shadow-lg cursor-pointer">
+                        <img src="https://m.media-amazon.com/images/I/81L4LNZtbjL.jpg" alt="Genuine RO filters and spare parts" class="w-full h-64 object-cover" loading="lazy">
+                    </div>
+                    <!-- Image 6 (Placeholder) -->
+                    <div class="gallery-item snap-center shrink-0 w-4/5 sm:w-2/5 lg:w-1/4 rounded-lg overflow-hidden shadow-lg cursor-pointer">
+                        <img src="https://dynamics.folio3.com/blog/wp-content/uploads/2023/09/warehouse-packing-1024x574.jpg" alt="Warehouse with RO units in stock" class="w-full h-64 object-cover" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Before & After Slider 1 -->
+            <div class="container mx-auto px-4 mt-16">
+                <h3 class="text-2xl font-bold text-deep-blue text-center mb-6">See the Difference: Filter Change</h3>
+                <div id="ba-slider" class="ba-slider max-w-3xl mx-auto shadow-2xl">
+                    <!-- NEWLY GENERATED "BEFORE" IMAGE -->
+                    <img src="https://storage.googleapis.com/agent-docs-mediastore/a49c9533-be76-4e58-94ed-f4951475c404/dirty-filter.png" alt="Before repair: dirty water filter" loading="lazy">
+                    <div class="ba-image-top">
+                        <!-- NEWLY GENERATED "AFTER" IMAGE -->
+                        <img src="https://storage.googleapis.com/agent-docs-mediastore/a49c9533-be76-4e58-94ed-f4951475c404/clean-filter.png" alt="After repair: clean new water filter" loading="lazy">
+                    </div>
+                    <div class="ba-slider-handle"></div>
+                    <input type="range" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize" min="0" max="100" value="50" aria-label="Before and after slider">
+                </div>
+            </div>
+
+            <!-- NEW: Before & After Slider 2 -->
+            <div class="container mx-auto px-4 mt-16">
+                <h3 class="text-2xl font-bold text-deep-blue text-center mb-6">Before & After: Unit Replacement</h3>
+                <div id="ba-slider-2" class="ba-slider max-w-3xl mx-auto shadow-2xl">
+                    <!-- NEW "BEFORE" IMAGE -->
+                    <img src="https://storage.googleapis.com/agent-docs-mediastore/a49c9533-be76-4e58-94ed-f4951475c404/old-ro.png" alt="Before: Old, stained RO unit" loading="lazy">
+                    <div class="ba-image-top">
+                        <!-- NEW "AFTER" IMAGE -->
+                        <img src="https://storage.googleapis.com/agent-docs-mediastore/a49c9533-be76-4e58-94ed-f4951475c404/new-ro.png" alt="After: New, clean RO unit installed" loading="lazy">
+                    </div>
+                    <div class="ba-slider-handle"></div>
+                    <input type="range" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize" min="0" max="100" value="50" aria-label="Before and after slider 2">
+                </div>
+            </div>
+        </section>
+
+        <!-- Two Office Block -->
+        <section id="locations" class="py-16 lg:py-24">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <span class="text-aqua-dark font-semibold">Our Locations</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-deep-blue mt-2">Find Us Near You</h2>
+                    <p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">We have two convenient offices to serve Noida and Greater Noida West faster.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Location Card 1: Noida -->
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+                        <div class="w-full h-56 bg-gray-200">
+                            <!-- NOTE: Map placeholders are left intentionally, as generating specific maps is not reliable. -->
+                            <img src="https://placehold.co/600x300/e2e8f0/64748b?text=Noida+Office+Map+Placeholder" alt="Map of Noida office location" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-deep-blue">Noida Office</h3>
+                            <p class="text-gray-700 mt-2">Near Green Filed Public School, Tigri Gol Chakkar, Noida - 201301</p>
+                            <p class="text-gray-600 mt-2 text-sm">Hours: 9:00 AM - 8:00 PM (All Days)</p>
+                            <div class="flex gap-4 mt-4">
+                                <a href="tel:8930414198" class="flex-1 inline-flex items-center justify-center gap-2 text-center bg-aqua-green text-white px-6 py-3 rounded-lg font-medium shadow-md hover:shadow-lg hover:bg-aqua-green/90 transition-all transform hover:scale-105">
+                                    <!-- Phone Icon -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                    Call Now
+                                </a>
+                                <a href="#" class="flex-1 inline-flex items-center justify-center gap-2 text-center border border-aqua-dark text-aqua-dark px-6 py-3 rounded-lg font-medium hover:bg-aqua-light transition-all transform hover:scale-105">
+                                    <!-- Map Pin Icon -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    Get Directions
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Location Card 2: Greater Noida West -->
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+                        <div class="w-full h-56 bg-gray-200">
+                            <img src="https://placehold.co/600x300/e2e8f0/64748b?text=Gaur+City-2+Map+Placeholder" alt="Map of Gaur City-2 office location" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-deep-blue">Greater Noida West Office</h3>
+                            <p class="text-gray-700 mt-2">Gaur City-2, Greater Noida West, UP</p>
+                            <p class="text-gray-600 mt-2 text-sm">Hours: 9:00 AM - 8:00 PM (All Days)</p>
+                            <div class="flex gap-4 mt-4">
+                                <a href="tel:8307003644" class="flex-1 inline-flex items-center justify-center gap-2 text-center bg-aqua-green text-white px-6 py-3 rounded-lg font-medium shadow-md hover:shadow-lg hover:bg-aqua-green/90 transition-all transform hover:scale-105">
+                                    <!-- Phone Icon -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                    Call Now
+                                </a>
+                                <a href="#" class="flex-1 inline-flex items-center justify-center gap-2 text-center border border-aqua-dark text-aqua-dark px-6 py-3 rounded-lg font-medium hover:bg-aqua-light transition-all transform hover:scale-105">
+                                    <!-- Map Pin Icon -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    Get Directions
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact / Booking Form -->
+        <section id="booking-form" class="py-16 lg:py-24 bg-aqua-light">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <!-- Form Text Content -->
+                    <div class="pr-0 lg:pr-12">
+                        <span class="text-aqua-dark font-semibold">Request Technician</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-deep-blue mt-2">Book Your Service Today</h2>
+                        <p class="text-lg text-gray-700 mt-4">Fill out the form below, and our team will get in touch with you shortly to confirm your service. Fast, reliable, and just a call away.</p>
+                        
+                        <div class="mt-8 space-y-4">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 bg-aqua-green text-white rounded-full flex items-center justify-center shrink-0 mt-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg text-deep-blue">All Brands Serviced</h4>
+                                    <p class="text-gray-600">Kent, Aquaguard, Pureit, and all other brands.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 bg-aqua-green text-white rounded-full flex items-center justify-center shrink-0 mt-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg text-deep-blue">Genuine Parts Guarantee</h4>
+                                    <p class="text-gray-600">We only use genuine filters and spare parts for all repairs.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Form -->
+                    <form id="contact-form" class="bg-white p-8 rounded-xl shadow-2xl">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                                <input type="text" name="name" id="name" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-aqua focus:border-aqua">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                                <input type="tel" name="phone" id="phone" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-aqua focus:border-aqua">
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label for="service-type" class="block text-sm font-medium text-gray-700">Service Type</label>
+                                <select id="service-type" name="service-type" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-aqua focus:border-aqua bg-white">
+                                    <option>Select a service</option>
+                                    <option>Repair / Troubleshooting</option>
+                                    <option>New Installation</option>
+                                    <option>Filter Replacement</option>
+                                    <option>AMC / Maintenance</option>
+                                    <option>Tank Cleaning</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="date" class="block text-sm font-medium text-gray-700">Preferred Date</label>
+                                <input type="date" name="date" id="date" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-aqua focus:border-aqua">
+                            </div>
+                            <div>
+                                <label for="office" class="block text-sm font-medium text-gray-700">Nearest Office</label>
+                                <select id="office" name="office" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-aqua focus:border-aqua bg-white">
+                                    <option>Noida (Tigri Gol Chakkar)</option>
+                                    <option>Greater Noida West (Gaur City-2)</option>
+                                </select>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label for="message" class="block text-sm font-medium text-gray-700">Message (Optional)</label>
+                                <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-aqua focus:border-aqua" placeholder="Describe your issue..."></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full inline-flex items-center justify-center gap-2 bg-aqua text-white px-8 py-3.5 rounded-lg font-bold text-lg shadow-lg hover:bg-aqua/90 transition-all transform hover:scale-105 mt-6">
+                            <!-- Send Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                            Submit Request
+                        </button>
+                        <p id="form-success" class="text-center text-aqua-green mt-4 hidden">Thank you! We've received your request and will call you soon.</p>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Testimonials -->
+        <section class="py-16 lg:py-24">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <span class="text-aqua-dark font-semibold">Testimonials</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-deep-blue mt-2">Trust Our Customers</h2>
+                    <p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">We are proud to serve our community. See what they say about us.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-aqua-light p-6 rounded-xl relative">
+                        <div class="text-aqua-dark text-6xl font-bold absolute top-0 left-4 opacity-10">&ldquo;</div>
+                        <div class="flex mb-2">
+                            <!-- Star Icons -->
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                        </div>
+                        <p class="text-gray-700 italic relative z-10">"Very fast and professional service. Roshan ji's team fixed my RO in under an hour. Highly recommended!"</p>
+                        <p class="font-bold text-deep-blue mt-4">— Ankit S., Noida Sector 76</p>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="bg-aqua-light p-6 rounded-xl relative">
+                        <div class="text-aqua-dark text-6xl font-bold absolute top-0 left-4 opacity-10">&ldquo;</div>
+                        <div class="flex mb-2">
+                            <!-- Star Icons -->
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                        </div>
+                        <p class="text-gray-700 italic relative z-10">"I take AMC from Aqua RO Service for my Gaur City flat. They are very reliable and always come on time for service."</p>
+                        <p class="font-bold text-deep-blue mt-4">— Mrs. Priya, Gaur City-2</p>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="bg-aqua-light p-6 rounded-xl relative">
+                        <div class="text-aqua-dark text-6xl font-bold absolute top-0 left-4 opacity-10">&ldquo;</div>
+                        <div class="flex mb-2">
+                            <!-- Star Icons -->
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.561-.955L10 0l2.95 6.135 6.561.955-4.756 4.455 1.123 6.545z"/></svg>
+                        </div>
+                        <p class="text-gray-700 italic relative z-10">"Good price for new RO installation and filters are genuine. Water taste is very good now. Thank you Sharma ji."</p>
+                        <p class="font-bold text-deep-blue mt-4">— Rakesh V., Tigri</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-deep-blue text-gray-300 pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Footer Column 1: Brand & Socials -->
+                <div>
+                    <a href="#" class="text-3xl font-bold font-heading text-white">
+                        Aqua RO Service
+                        <span class="block text-sm font-medium text-gray-400">Pro. Roshan Sharma</span>
+                    </a>
+                    <p class="mt-4 text-sm">Your trusted partner for clean and healthy drinking water. Sales, Service & Repair — RO hi RO.</p>
+                    <div class="flex gap-4 mt-6">
+                        <!-- WhatsApp Icon -->
+                        <a href="https_wa_me_918930414198" target="_blank" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-white hover:bg-aqua-green transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
+                        </a>
+                        <!-- Facebook Icon -->
+                        <a href="#" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-white hover:bg-aqua-dark transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Footer Column 2: Quick Links -->
+                <div>
+                    <h4 class="text-xl font-semibold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-aqua transition-colors">Home</a></li>
+                        <li><a href="#services" class="hover:text-aqua transition-colors">Services</a></li>
+                        <li><a href="#gallery" class="hover:text-aqua transition-colors">Gallery</a></li>
+                        <li><a href="#locations" class="hover:text-aqua transition-colors">Locations</a></li>
+                        <li><a href="#booking-form" class="hover:text-aqua transition-colors">Book Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Footer Column 3: Noida Office -->
+                <div>
+                    <h4 class="text-xl font-semibold text-white mb-4">Noida Office</h4>
+                    <p class="leading-relaxed">Near Green Filed Public School,<br>Tigri Gol Chakkar, Noida<br>Pin: 201301</p>
+                    <h5 class="font-semibold text-white mt-4 mb-2">Call Us:</h5>
+                    <a href="tel:8930414198" class="block hover:text-aqua transition-colors">8930414198</a>
+                    <a href="tel:8307003644" class="block hover:text-aqua transition-colors">8307003644</a>
+                </div>
+
+                <!-- Footer Column 4: Gr. Noida Office -->
+                <div>
+                    <h4 class="text-xl font-semibold text-white mb-4">Gr. Noida West Office</h4>
+                    <p class="leading-relaxed">Gaur City-2,<br>Greater Noida West, UP</p>
+                    <h5 class="font-semibold text-white mt-4 mb-2">Call Us:</h5>
+                    <a href="tel:8930414198" class="block hover:text-aqua transition-colors">8930414198</a>
+                    <a href="tel:8307003644" class="block hover:text-aqua transition-colors">8307003644</a>
+                </div>
+            </div>
+            
+            <!-- Copyright Bar -->
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-sm">
+                <p>&copy; <span id="current-year"></span> Aqua RO Service. All rights reserved.</p>
+                <p class="mt-1">Website designed & developed with care.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button (FAB) - Mobile Only -->
+    <button id="fab-btn" class="md:hidden fixed bottom-6 right-6 z-40 w-16 h-16 bg-aqua rounded-full shadow-xl flex items-center justify-center text-white transform transition-transform hover:scale-110">
+        <!-- Phone Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </button>
+    
+    <!-- FAB Modal (Hidden) -->
+    <div id="fab-modal" class="md:hidden hidden fixed bottom-24 right-6 z-50 bg-white rounded-lg shadow-2xl w-64 p-4 fab-modal opacity-0 transform translate-y-2">
+        <div class="flex justify-between items-center mb-3">
+            <span class="font-bold text-deep-blue">Call Us Now</span>
+            <button id="fab-close" class="text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+            </button>
+        </div>
+        <a href="tel:8930414198" class="block w-full inline-flex items-center justify-center gap-2 text-center bg-aqua-green text-white px-4 py-2.5 rounded-lg font-medium mb-2 transition-all hover:bg-aqua-green/90 transform hover:scale-105">
+            <!-- Phone Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call 8930414198
+        </a>
+        <a href="tel:8307003644" class="block w-full inline-flex items-center justify-center gap-2 text-center bg-aqua-dark text-white px-4 py-2.5 rounded-lg font-medium transition-all hover:bg-aqua-dark/90 transform hover:scale-105">
+            <!-- Phone Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call 8307003644
+        </a>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 opacity-0">
+        <div class="relative bg-white rounded-lg shadow-2xl max-w-3xl max-h-[80vh] w-full h-full">
+            <img id="lightbox-img" src="" alt="Enlarged gallery image" class="w-full h-full object-contain rounded-lg">
+            <button id="lightbox-close" class="absolute -top-4 -right-4 w-10 h-10 bg-white rounded-full text-deep-blue shadow-lg flex items-center justify-center text-2xl font-bold">&times;</button>
+        </div>
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- Current Year for Footer ---
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // --- Sticky Header Shadow on Scroll ---
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) {
+                    header.classList.add('shadow-md');
+                } else {
+                    header.classList.remove('shadow-md');
+                }
+            });
+
+            // --- Mobile Menu Toggle ---
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Close menu on link click
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // --- Lightbox Functionality ---
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxClose = document.getElementById('lightbox-close');
+            
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const imgSrc = item.querySelector('img').src;
+                    lightboxImg.src = imgSrc;
+                    lightbox.classList.remove('hidden');
+                    setTimeout(() => lightbox.classList.remove('opacity-0'), 10); // Fade in
+                });
+            });
+
+            const closeLightbox = () => {
+                lightbox.classList.add('opacity-0');
+                setTimeout(() => lightbox.classList.add('hidden'), 300); // Wait for transition
+            }
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) { // Close on backdrop click
+                    closeLightbox();
+                }
+            });
+
+            // --- UPDATED: Before & After Slider Function ---
+            function initBaSlider(sliderId) {
+                const baSlider = document.getElementById(sliderId);
+                if (baSlider) {
+                    const sliderInput = baSlider.querySelector('input[type="range"]');
+                    const topImage = baSlider.querySelector('.ba-image-top');
+                    const handle = baSlider.querySelector('.ba-slider-handle');
+
+                    sliderInput.addEventListener('input', (e) => {
+                        const value = e.target.value;
+                        topImage.style.clipPath = `polygon(0 0, ${value}% 0, ${value}% 100%, 0 100%)`;
+                        handle.style.left = `${value}%`;
+                    });
+                }
+            }
+            
+            // Initialize both sliders
+            initBaSlider('ba-slider');
+            initBaSlider('ba-slider-2');
+
+            // --- NEW: Hero Slider Navigation ---
+            const heroTrack = document.querySelector('.hero-slider-track');
+            const prevBtn = document.getElementById('hero-prev-btn');
+            const nextBtn = document.getElementById('hero-next-btn');
+            const items = document.querySelectorAll('.hero-slider-item');
+            const totalItems = items.length; // This is 6
+
+            if (heroTrack && prevBtn && nextBtn && totalItems > 0) {
+                nextBtn.addEventListener('click', () => {
+                    const itemWidth = heroTrack.clientWidth;
+                    const currentScroll = heroTrack.scrollLeft;
+                    const currentItem = Math.round(currentScroll / itemWidth);
+                    
+                    if (currentItem + 1 >= totalItems) {
+                        // At the end, loop to start
+                        heroTrack.scrollTo({ left: 0, behavior: 'smooth' });
+                    } else {
+                        // Go to next item
+                        heroTrack.scrollBy({ left: itemWidth, behavior: 'smooth' });
+                    }
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    const itemWidth = heroTrack.clientWidth;
+                    const currentScroll = heroTrack.scrollLeft;
+                    
+                    if (currentScroll === 0) {
+                        // At the start, loop to end
+                        heroTrack.scrollTo({ left: heroTrack.scrollWidth, behavior: 'smooth' });
+                    } else {
+                        // Go to previous item
+                        heroTrack.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+                    }
+                });
+            }
+
+            // --- Floating Action Button (FAB) Modal ---
+            const fabBtn = document.getElementById('fab-btn');
+            const fabModal = document.getElementById('fab-modal');
+            const fabClose = document.getElementById('fab-close');
+
+            fabBtn.addEventListener('click', () => {
+                fabModal.classList.remove('hidden');
+                setTimeout(() => {
+                    fabModal.classList.remove('opacity-0', 'translate-y-2');
+                }, 10);
+            });
+            
+            fabClose.addEventListener('click', () => {
+                fabModal.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => {
+                    fabModal.classList.add('hidden');
+                }, 300);
+            });
+
+            // --- Form Submission ---
+            const contactForm = document.getElementById('contact-form');
+            const formSuccess = document.getElementById('form-success');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // In a real app, you'd send this data to a server.
+                // For this demo, we'll just show a success message.
+                contactForm.reset();
+                formSuccess.classList.remove('hidden');
+                setTimeout(() => {
+                    formSuccess.classList.add('hidden');
+                }, 5000);
+            });
+            
+            // --- Smooth Scroll for Anchor Links ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Calculate offset for sticky header
+                        const headerOffset = document.getElementById('header').offsetHeight + 20;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+
+            // --- Create Water Droplets (Enhanced) ---
+            function createDroplets() {
+                const container = document.getElementById('droplet-container');
+                if (!container) return; // Stop if container not found
+
+                const numDroplets = 50; // Increased number of droplets
+
+                for (let i = 0; i < numDroplets; i++) {
+                    const droplet = document.createElement('div');
+                    droplet.classList.add('droplet');
+
+                    // Random horizontal position
+                    droplet.style.left = `${Math.random() * 100}vw`;
+
+                    // Random animation duration (4s to 9s) - slightly faster/more varied
+                    droplet.style.animationDuration = `${Math.random() * 5 + 4}s`;
+                    
+                    // Add ease-in timing to simulate acceleration
+                    droplet.style.animationTimingFunction = 'ease-in';
+
+                    // Random animation delay (0s to 10s)
+                    droplet.style.animationDelay = `${Math.random() * 10}s`;
+
+                    // Random size (2px to 6px) - slightly smaller for subtlety
+                    const size = Math.random() * 4 + 2;
+                    droplet.style.width = `${size}px`;
+                    droplet.style.height = `${size * 1.5}px`; // Make them teardrop shaped
+
+                    // Random opacity (0.2 to 0.7)
+                    droplet.style.opacity = Math.random() * 0.5 + 0.2;
+
+                    container.appendChild(droplet);
+                }
+            }
+
+            // Check for reduced motion preference before creating droplets
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!prefersReducedMotion) {
+                createDroplets();
+            }
+            
+        });
+    </script>
+</body>
+</html>
